@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
+    private DrawerLayout drawer;
 
     private Fragment fragmentmeteo;
     private Fragment fragmentevent;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity
             this.showFragment(FRAGMENT_METEO);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -138,9 +139,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
-
-
     private void showMeteoFragment(){
         if(this.fragmentmeteo==null)this.fragmentmeteo = new AstroMeteo();
         this.startTransactionFragment(this.fragmentmeteo);
@@ -163,9 +161,7 @@ public class MainActivity extends AppCompatActivity
 
         if (!fragment.isVisible()){
 
-            getSupportFragmentManager().beginTransaction()
-
-                    .replace(R.id.drawer_layout, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         }
 
@@ -173,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showFirstFragment(){
 
-        Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.drawer_layout);
+        Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
 
         if (visibleFragment == null){
 
